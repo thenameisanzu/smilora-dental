@@ -40,7 +40,7 @@ export const services = [
     desc: "Reshape, align and restore your smile with tailored ultra-thin porcelain veneers and digital smile design.",
     icon: "gem",
     duration: "2 sessions",
-    image: "/images/service-whitening.jpg",
+    image: "/images/service-veneers.jpg",
   },
   {
     title: "Digital X-Ray & 3D Scans",
