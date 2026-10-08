@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-tap-highlight-color:transparent}
+body{@apply bg-white font-sans text-ink antialiased}
+@media (max-width:767px){body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}}
+:focus-visible{outline:2px solid #0E9AA7;outline-offset:3px}
+.no-scrollbar::-webkit-scrollbar{display:none}.no-scrollbar{scrollbar-width:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
