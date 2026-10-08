@@ -26,36 +26,42 @@ export const services = [
     desc: "Safe, in-clinic whitening that removes years of coffee and tea stains in a single visit.",
     icon: "sparkles",
     duration: "45 mins",
+    image: "/images/service-whitening.jpg",
   },
   {
     title: "General Dentistry & RCT",
     desc: "Cleanings, tooth fillings, painless microscopic root canals and check-ups — the foundation of oral health.",
     icon: "shield",
     duration: "45 mins",
+    image: "/images/clinic-operatory.jpg",
   },
   {
     title: "Cosmetic & Veneers",
     desc: "Reshape, align and restore your smile with tailored ultra-thin porcelain veneers and digital smile design.",
     icon: "gem",
     duration: "2 sessions",
+    image: "/images/service-whitening.jpg",
   },
   {
     title: "Digital X-Ray & 3D Scans",
     desc: "Low-radiation digital imaging and intraoral 3D scanning for pinpoint accuracy and clear treatment plans.",
     icon: "scan",
     duration: "15 mins",
+    image: "/images/service-scan.jpg",
   },
   {
     title: "Kids Dentistry",
     desc: "A calm, playful experience with fluoride protection so your little ones grow up loving the dentist.",
     icon: "baby",
     duration: "30 mins",
+    image: "/images/service-kids.jpg",
   },
   {
     title: "Implants & Aligners",
     desc: "Advanced titanium implants, clear aligners and ceramic orthodontics from experienced clinical specialists.",
     icon: "smile",
     duration: "Custom plan",
+    image: "/images/service-aligners.jpg",
   },
 ] as const;
 

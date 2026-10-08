@@ -129,11 +129,11 @@ export default function Page() {
         {/* Hero Section */}
         <Hero />
 
-        {/* 1. Services Section */}
+        {/* 1. Services Section with Visual Stock Imagery */}
         <section id="services" className={`${wrap} py-16 md:py-24`}>
           <div className="text-center">
             <span className="rounded-full bg-teal/10 px-3.5 py-1 text-xs font-bold text-teal-dark">
-              Our services
+              Our Services
             </span>
             <h2 className={`${h2} mt-3`}>Complete dental care under one roof</h2>
             <p className="mx-auto mt-3 max-w-xl text-ink/70">
@@ -142,36 +142,49 @@ export default function Page() {
           </div>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map(({ title, desc, icon, duration }) => {
+            {services.map(({ title, desc, icon, duration, image }) => {
               const Icon = serviceIcons[icon] || Sparkles;
               return (
                 <article
                   key={title}
-                  className="group relative flex flex-col justify-between rounded-2xl border border-ink/10 bg-white p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-teal/40 hover:shadow-xl"
+                  className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-ink/10 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-teal/40 hover:shadow-xl"
                 >
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <span className="grid h-12 w-12 place-items-center rounded-2xl bg-aqua text-teal-dark transition-all duration-300 group-hover:scale-110 group-hover:bg-teal group-hover:text-white group-hover:shadow-md group-hover:shadow-teal/20">
-                        <Icon size={22} />
-                      </span>
-                      <span className="rounded-full bg-mist px-3 py-1 text-xs font-semibold text-ink/70">
-                        {duration}
-                      </span>
-                    </div>
-                    <h3 className="mt-4 font-display text-xl font-bold text-ink transition-colors group-hover:text-teal-dark">
-                      {title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-ink/70">{desc}</p>
+                  {/* Service Visual Thumbnail */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-mist">
+                    <Image
+                      src={image}
+                      alt={title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent opacity-60" />
+                    <span className="absolute top-3 right-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-ink shadow-sm backdrop-blur-sm">
+                      {duration}
+                    </span>
+                    <span className="absolute bottom-3 left-3 grid h-10 w-10 place-items-center rounded-xl bg-teal text-white shadow-md">
+                      <Icon size={19} />
+                    </span>
                   </div>
 
-                  <div className="mt-6 flex items-center justify-end border-t border-ink/5 pt-4">
-                    <a
-                      href="#book"
-                      className="inline-flex items-center gap-1 rounded-full bg-aqua/50 px-4 py-2 text-xs font-bold text-teal-dark transition-all duration-200 hover:scale-105 hover:bg-teal hover:text-white"
-                    >
-                      <span>Book Consultation</span>
-                      <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
-                    </a>
+                  <div className="flex flex-1 flex-col justify-between p-6">
+                    <div>
+                      <h3 className="font-display text-xl font-bold text-ink transition-colors group-hover:text-teal-dark">
+                        {title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-ink/70">{desc}</p>
+                    </div>
+
+                    <div className="mt-6 flex items-center justify-between border-t border-ink/5 pt-4">
+                      <span className="text-xs font-semibold text-teal">Specialist Care</span>
+                      <a
+                        href="#book"
+                        className="inline-flex items-center gap-1 rounded-full bg-aqua/60 px-4 py-2 text-xs font-bold text-teal-dark transition-all duration-200 hover:scale-105 hover:bg-teal hover:text-white"
+                      >
+                        <span>Book Consultation</span>
+                        <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+                      </a>
+                    </div>
                   </div>
                 </article>
               );
@@ -235,7 +248,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* 3. Why Us Section ("Why Smilora") */}
+        {/* 3. Why Us Section ("Why Smilora") & Clinic Environment Tour */}
         <section id="why-us" className={`${wrap} py-16 md:py-24`}>
           <div className="text-center">
             <span className="rounded-full bg-teal/10 px-3.5 py-1 text-xs font-bold text-teal-dark">
@@ -263,6 +276,53 @@ export default function Page() {
                 </div>
               );
             })}
+          </div>
+
+          {/* Clinic Ambience Photo Showcase */}
+          <div className="mt-16 overflow-hidden rounded-3xl border border-ink/10 bg-mist/60 p-6 md:p-10">
+            <div className="text-center max-w-2xl mx-auto mb-8">
+              <span className="text-xs font-bold uppercase tracking-widest text-teal">Clinic Ambience</span>
+              <h3 className="mt-2 font-display text-2xl font-bold text-ink sm:text-3xl">Designed for Comfort & Precision</h3>
+              <p className="mt-2 text-sm text-ink/70">
+                Experience spotless clinical hygiene, ergonomic treatment chairs, and a calming lounge atmosphere.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="group relative overflow-hidden rounded-2xl bg-white shadow-md">
+                <div className="relative aspect-[16/10] w-full overflow-hidden">
+                  <Image
+                    src="/images/clinic-operatory.jpg"
+                    alt="Smilora Advanced Dental Operatory"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <p className="font-display text-lg font-bold">Ultra-Clean Operatory Suites</p>
+                    <p className="text-xs text-white/80 mt-0.5">Equipped with 3D digital imaging, intraoral cameras & micro-dentistry</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="group relative overflow-hidden rounded-2xl bg-white shadow-md">
+                <div className="relative aspect-[16/10] w-full overflow-hidden">
+                  <Image
+                    src="/images/clinic-reception.jpg"
+                    alt="Smilora Dental Care Reception & Lounge"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <p className="font-display text-lg font-bold">Welcoming Patient Lounge</p>
+                    <p className="text-xs text-white/80 mt-0.5">Stress-free waiting space with refreshments and friendly reception desk</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

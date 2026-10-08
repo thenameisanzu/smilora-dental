@@ -14,15 +14,12 @@ import {
 } from "lucide-react";
 import { clinic } from "@/lib/content";
 
-const navItems = [
-  { id: "home", label: "Home", Icon: Home },
-  { id: "services", label: "Services", Icon: Sparkles },
-  { id: "whitening", label: "Whitening", Icon: Sparkles },
-  { id: "why-us", label: "Why Us", Icon: ShieldCheck },
-  { id: "doctors", label: "Doctors", Icon: Users },
-  { id: "reviews", label: "Reviews", Icon: Star },
-  { id: "book", label: "Book", Icon: CalendarCheck },
-  { id: "visit", label: "Visit", Icon: MapPin },
+const mobileNavItems = [
+  { id: "home", label: "Home", Icon: Home, relatedSections: ["home"] },
+  { id: "services", label: "Services", Icon: Sparkles, relatedSections: ["services", "whitening"] },
+  { id: "book", label: "Book", Icon: CalendarCheck, isCenterCTA: true, relatedSections: ["book"] },
+  { id: "doctors", label: "Doctors", Icon: Users, relatedSections: ["doctors", "why-us", "reviews"] },
+  { id: "visit", label: "Visit", Icon: MapPin, relatedSections: ["visit", "faq"] },
 ];
 
 const deskItems = [
@@ -159,43 +156,56 @@ export default function Nav() {
         </div>
       </header>
 
-      {/* Mobile Bottom Floating Nav Bar with Active Animated Highlighting */}
+      {/* Redesigned Clean Mobile Floating Island Bottom Nav */}
       <nav
         aria-label="Mobile Navigation"
-        className="fixed inset-x-0 bottom-0 z-50 border-t border-ink/10 bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-2xl backdrop-blur-xl md:hidden"
+        className="fixed inset-x-3 bottom-3 z-50 max-w-lg mx-auto rounded-2xl border border-ink/10 bg-white/95 px-2 py-1.5 shadow-[0_10px_35px_rgba(14,154,167,0.15)] backdrop-blur-2xl md:hidden"
       >
-        <ul className="mx-auto grid max-w-md grid-cols-8 px-1">
-          {navItems.map(({ id, label, Icon }) => {
-            const on = active === id;
-            const isBook = id === "book";
+        <ul className="grid grid-cols-5 items-center justify-items-center">
+          {mobileNavItems.map(({ id, label, Icon, isCenterCTA, relatedSections }) => {
+            const isTabActive = relatedSections.includes(active) || active === id;
+
+            if (isCenterCTA) {
+              return (
+                <li key={id} className="flex justify-center">
+                  <a
+                    href={`#${id}`}
+                    onClick={handleNavClick(id)}
+                    className="group relative -mt-5 flex flex-col items-center justify-center focus:outline-none"
+                    aria-label="Book an Appointment"
+                  >
+                    <motion.div
+                      whileTap={{ scale: 0.92 }}
+                      className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-tr from-teal to-[#16B4C4] text-white shadow-lg shadow-teal/40 ring-4 ring-white transition-transform group-hover:scale-105"
+                    >
+                      <Icon size={22} className="stroke-[2.2]" />
+                    </motion.div>
+                    <span className="mt-0.5 text-[10.5px] font-bold text-teal tracking-tight">
+                      {label}
+                    </span>
+                  </a>
+                </li>
+              );
+            }
+
             return (
-              <li key={id}>
+              <li key={id} className="w-full">
                 <a
                   href={`#${id}`}
                   onClick={handleNavClick(id)}
-                  className="relative flex h-14 flex-col items-center justify-center gap-0.5 text-[8.5px] font-semibold active:scale-90 transition-transform"
+                  className={`relative flex h-12 w-full flex-col items-center justify-center rounded-xl py-1 transition-all duration-200 active:scale-95 ${
+                    isTabActive ? "text-teal" : "text-ink/60 hover:text-ink/80"
+                  }`}
                 >
-                  {isBook ? (
-                    <span className="-mt-6 grid h-11 w-11 place-items-center rounded-full bg-teal text-white shadow-lg shadow-teal/40 ring-4 ring-white animate-pulse">
-                      <Icon size={18} />
-                    </span>
-                  ) : (
-                    <span
-                      className={`relative grid h-7 w-8 place-items-center rounded-full transition-colors ${
-                        on ? "text-teal" : "text-ink/60"
-                      }`}
-                    >
-                      {on && (
-                        <motion.span
-                          layoutId="mobileNavPill"
-                          transition={{ type: "spring", stiffness: 450, damping: 32 }}
-                          className="absolute inset-0 rounded-full bg-aqua shadow-sm"
-                        />
-                      )}
-                      <Icon size={16} className="relative z-10" />
-                    </span>
+                  {isTabActive && (
+                    <motion.span
+                      layoutId="mobileActiveTab"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      className="absolute inset-x-2 inset-y-1 rounded-xl bg-aqua/70 -z-10"
+                    />
                   )}
-                  <span className={on || isBook ? "text-teal font-bold" : "text-ink/60"}>
+                  <Icon size={19} className={`transition-transform duration-200 ${isTabActive ? "scale-110 stroke-[2.2]" : "stroke-[1.8]"}`} />
+                  <span className={`text-[11px] mt-0.5 font-medium tracking-tight ${isTabActive ? "font-bold text-teal" : "text-ink/70"}`}>
                     {label}
                   </span>
                 </a>
